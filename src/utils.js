@@ -1,16 +1,9 @@
-export const toQueryString = params =>
-  Object.entries(params)
-    .map(
-      ([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`
-    )
-    .join('&');
+const identity = x => x
 
 let options = null;
-
 export const setOptions = parameters => {
-  const { map, fetch, defaultProps = {} } = parameters;
-  if (!map) throw new Error('map is required for fetch-addon');
-  if (!fetch) throw new Error('fetch is required for fetch-addon');
+  const { fetch, map = identity, defaultProps = {} } = parameters;
+  if (!fetch) throw new Error('fetch is required for storybook-fetch-addon');
 
   options = { fetch, map, defaultProps };
 };

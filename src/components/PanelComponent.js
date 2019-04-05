@@ -1,28 +1,23 @@
 import React from 'react';
 import { STORY_CHANGED } from '@storybook/core-events';
+import copy from 'copy-to-clipboard';
+import qs from 'qs';
 import Button from './Button';
 import Input from './Input';
 import { ADDON_ID, EVENTS } from '../utils';
 
 const parseQueryString = queryString => {
-  const params = queryString
-    .replace('?', '')
-    .split('&')
-    .map(p => p.split('='))
-    .reduce((acc, [key, value]) => {
-      acc[key] = value;
-      return acc;
-    }, {});
+  const params = qs.parse(queryString);
 
   return key => {
     const val = params[key];
-    return val ? decodeURIComponent(val) : '';
+    return val ? val : '';
   };
 };
 
 parseQueryString.reset = () => () => '';
 
-const qsKey = id => `fetch-${encodeURIComponent(id)}`;
+const qsKey = id => `fetch-${id}`;
 
 export default class PanelComponent extends React.Component {
   state = {
@@ -104,26 +99,27 @@ export default class PanelComponent extends React.Component {
     this.setItemState(id, { showData: show }, false);
   };
 
+  get url() {
+    const qs = qs.stringify(
+      Object.values(this.items)
+        .reduce((acc, {id, value}) => {
+          acc[qsKey(id)] = value;
+          return acc;
+        }, {}));
+    
+    return `${location.origin}${location.pathname}${location.search.replace(
+      /\/+/,
+      '/'
+    )}&${qs}`;
+  }
+
   handleCopy = () => {
-    const el = document.getElementById(`${ADDON_ID}/url`);
-    el.select();
-    document.execCommand('copy');
+    copy(this.url);
   };
 
   get items() {
     const { items, currentStory } = this.state;
     return items[currentStory] || {};
-  }
-
-  get url() {
-    const qs = Object.values(this.items)
-      .map(({ id, value }) => `${qsKey(id)}=${encodeURIComponent(value)}`)
-      .join('&');
-
-    return `${location.origin}${location.pathname}${location.search.replace(
-      /\/+/,
-      '/'
-    )}&${qs}`;
   }
 
   render() {
@@ -184,25 +180,10 @@ export default class PanelComponent extends React.Component {
               overflow: 'hidden',
             }}
           >
-            <Input
-              id={`${ADDON_ID}/url`}
-              type="text"
-              value={this.url}
-              readOnly
-              style={{
-                borderRadius: 0,
-                flex: '1 0 auto',
-                paddingLeft: 8,
-                backgroundColor: '#fcfcfc',
-                borderLeft: 'none',
-                borderBottom: 'none',
-              }}
-            />
             <Button
               onClick={this.handleCopy}
               style={{
                 borderRadius: 0,
-                borderLeft: 'none',
                 borderRight: 'none',
                 borderBottom: 'none',
                 fontWeight: 'bold',
