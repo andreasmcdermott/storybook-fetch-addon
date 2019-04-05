@@ -44,7 +44,7 @@ export default class AsinsComponent extends React.Component {
     if (!this.props.ids.includes(id)) return;
 
     this.setState({ [id]: { loaded: false } }, () => {
-      if (value.length === 10) {
+      if (getOptions().valid(value)) {
         fetchData(value)
           .then(data => {
             if (!this.mounted) return;

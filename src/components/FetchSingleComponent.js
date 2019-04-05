@@ -48,7 +48,7 @@ export default class FetchSingleComponent extends React.Component {
     if (!this.mounted || id !== this.props.id) return;
 
     this.setState({ loaded: false }, () => {
-      if (value.length === 10) {
+      if (getOptions().valid(value)) {
         fetchData(value)
           .then(data => {
             if (!this.mounted) return;

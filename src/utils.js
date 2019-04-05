@@ -1,11 +1,12 @@
-const identity = x => x
+const identity = x => x;
+const alwaysValid = () => true;
 
 let options = null;
 export const setOptions = parameters => {
-  const { fetch, map = identity, defaultProps = {} } = parameters;
+  const { fetch, map = identity, valid = alwaysValid, defaultProps = {} } = parameters;
   if (!fetch) throw new Error('fetch is required for storybook-fetch-addon');
 
-  options = { fetch, map, defaultProps };
+  options = { fetch, map, valid, defaultProps };
 };
 
 export const getOptions = () => options;

@@ -27,12 +27,16 @@ addParameters({
   fetch: {
      // Required:
     fetch: param => fetch(`https://my-api.com?id=${param}`),
+
+    // Optional:
     map: data => { 
       // transform data from api
       return props;
     },
-    
-    // Optional
+    valid: value => { 
+      // Validate value
+      return valid;
+    },
     defaultProps: {
       return { /* default props */ };
     }
