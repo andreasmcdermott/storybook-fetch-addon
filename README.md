@@ -47,14 +47,14 @@ addParameters({
 
 * id: string that identifies the item.
 * component: React component that will be passed the fetched props.
-* defaultValue: string that will be used as default value for fetching data.
+* defaultValue: optional string that will be used as default value for fetching data.
 
 
 ### fetchList
 
 `(items, component) => Component`
 
-* items: array of id/defaultValue pairs. [[id, defaultValue], [id, defaultValue]]
+* items: array of id/defaultValue pairs. Default value is optional.
 * component: React component that will be passed the fetched props for all items.
 
 ### Example
