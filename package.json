@@ -3,7 +3,6 @@
   "version": "1.1.0",
   "description": "Fetch data from api",
   "main": "dist/index.js",
-  "module": "src/index.js",
   "scripts": {
     "build": "rollup --config"
   },
@@ -26,7 +25,8 @@
     "@storybook/addons": "^5.0.6",
     "@storybook/core-events": "^5.0.6",
     "copy-to-clipboard": "^3.1.0",
-    "qs": "^6.7.0"
+    "qs": "^6.7.0",
+    "react": "^16.8.6"
   },
   "peerDependencies": {
     "react": "*"
