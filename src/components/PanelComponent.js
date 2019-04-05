@@ -25,7 +25,7 @@ export default class PanelComponent extends React.Component {
     currentStory: this.props.api.getUrlState().storyId,
   };
 
-  qs = parseQueryString(this.props.queryString);
+  queryParam = parseQueryString(this.props.queryString);
 
   unsubscribeOnNewItem = null;
   unsubscribeOnFetchedData = null;
@@ -51,12 +51,12 @@ export default class PanelComponent extends React.Component {
   }
 
   onStoryChanged = kind => {
-    this.qs = parseQueryString.reset();
+    this.queryParam = parseQueryString.reset();
     this.setState({ currentStory: kind });
   };
 
   onNewItem = ({ id, value }) => {
-    const fromQs = this.qs(qsKey(id));
+    const fromQs = this.queryParam(qsKey(id));
     const urlValue = this.setItemState(id, { id, value: fromQs || value });
   };
 
@@ -100,7 +100,7 @@ export default class PanelComponent extends React.Component {
   };
 
   get url() {
-    const qs = qs.stringify(
+    const queryString = qs.stringify(
       Object.values(this.items)
         .reduce((acc, {id, value}) => {
           acc[qsKey(id)] = value;
@@ -110,7 +110,7 @@ export default class PanelComponent extends React.Component {
     return `${location.origin}${location.pathname}${location.search.replace(
       /\/+/,
       '/'
-    )}&${qs}`;
+    )}&${queryString}`;
   }
 
   handleCopy = () => {
@@ -175,15 +175,12 @@ export default class PanelComponent extends React.Component {
               position: 'absolute',
               bottom: 0,
               right: 0,
-              width: '100%',
-              display: 'flex',
-              overflow: 'hidden',
             }}
           >
             <Button
               onClick={this.handleCopy}
               style={{
-                borderRadius: 0,
+                borderRadius: '3px 0 0 0',
                 borderRight: 'none',
                 borderBottom: 'none',
                 fontWeight: 'bold',
