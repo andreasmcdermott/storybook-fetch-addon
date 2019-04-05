@@ -1,0 +1,45 @@
+{
+  "name": "storybook-fetch-addon",
+  "version": "1.0.0",
+  "description": "Fetch data from api",
+  "main": "dist/index.js",
+  "module": "src/index.js",
+  "scripts": {
+    "build": "rollup --config"
+  },
+  "keywords": [
+    "storybook",
+    "addon",
+    "fetch"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreasmcdermott/storybook-fetch-addon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andreasmcdermott/storybook-fetch-addon/issues"
+  },
+  "homepage": "https://github.com/andreasmcdermott/storybook-fetch-addon",
+  "author": "Andreas McDermott",
+  "license": "MIT",
+  "dependencies": {
+    "@storybook/addons": "^5.0.6",
+    "@storybook/core-events": "^5.0.6",
+    "copy-to-clipboard": "^3.1.0",
+    "qs": "^6.7.0"
+  },
+  "peerDependencies": {
+    "react": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "rollup": "^1.8.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-node-resolve": "^4.0.1"
+  }
+}
