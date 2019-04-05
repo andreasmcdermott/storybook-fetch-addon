@@ -1,7 +1,7 @@
 import React from 'react';
 import { STORY_CHANGED } from '@storybook/core-events';
 import copy from 'copy-to-clipboard';
-import qs from 'qs';
+import qs from 'querystring';
 import Button from './Button';
 import Input from './Input';
 import { ADDON_ID, EVENTS } from '../utils';
