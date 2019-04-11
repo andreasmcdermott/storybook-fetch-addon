@@ -127,7 +127,7 @@ export default class PanelComponent extends React.Component {
     const { active } = this.props;
 
     return active ? (
-      <div style={{ padding: '0 10px' }}>
+      <div style={{ padding: '0 10px', height: '100%', overflow: 'auto' }}>
         {Object.values(this.items).map(({ id, value, data, showData }) => (
           <div
             key={id}
@@ -142,6 +142,8 @@ export default class PanelComponent extends React.Component {
               style={{
                 fontWeight: 'bold',
                 width: 150,
+                minWidth: 100,
+                flex: 'none'
               }}
             >
               {id}
@@ -149,19 +151,23 @@ export default class PanelComponent extends React.Component {
             <Input
               type="text"
               value={value}
+              style={{ width: 100, flex: 'none', }}
               onChange={this.handleValueChange(id)}
             />
-            <div style={{ marginLeft: 20 }}>
+            <div style={{ marginLeft: 20, flex: 'auto' }}>
               {showData && (
-                <pre
+                <textarea
                   style={{
-                    maxHeight: 200,
-                    overflowY: 'auto',
+                    height: 200,
+                    width: '100%',
                     border: '1px solid #dedede',
+                    display: 'block',
+                    marginBottom: '20px',
                   }}
+                  readOnly
                 >
                   {JSON.stringify(data, null, 2)}
-                </pre>
+                </textarea>
               )}
               <Button onClick={this.handleToggleApiData(id, !showData)}>{`${
                 showData ? 'Hide' : 'Show'
